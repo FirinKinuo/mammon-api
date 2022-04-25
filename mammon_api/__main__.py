@@ -1,8 +1,6 @@
-from logging import getLogger
+import uvicorn
 
-from mammon_api.settings import config
-
-log = getLogger("main")
+from mammon_api.api import app
 
 if __name__ == "__main__":
-    print(f"Start Mammon API at host: {config.API_HOST}:{config.API_PORT}")
+    uvicorn.run(app, host="0.0.0.0", port=7000)
