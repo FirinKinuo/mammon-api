@@ -1,6 +1,6 @@
 from sqlalchemy.sql import sqltypes, schema
 
-from mammon_api.db import BaseModel
+from mammon_api.db import BaseModel, session
 
 
 class ReplenishmentHistory(BaseModel):
@@ -11,6 +11,11 @@ class ReplenishmentHistory(BaseModel):
 
     def __repr__(self):
         return f"{self.id} | Replenishment on {self.currency}RUB at {self.datetime}"
+
+    @classmethod
+    def get_pool_by_datetime(cls, start_datetime: datetime, end_datetime: datetime) -> list['ReplenishmentHistory']:
+        return session.query(cls).filter(start_datetime <= ReplenishmentHistory.datetime,
+                                         end_datetime >= ReplenishmentHistory.datetime).order_by(cls.id.desc()).all()
 
 
 def init_tables():
