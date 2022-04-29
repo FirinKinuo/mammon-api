@@ -11,4 +11,6 @@ RUN python -m venv /venv
 
 RUN /venv/bin/python setup.py install
 
+EXPOSE 7000
+
 ENTRYPOINT ["venv/bin/uvicorn", "mammon_api.api:app", "--host", "0.0.0.0", "--port", "7000"]
