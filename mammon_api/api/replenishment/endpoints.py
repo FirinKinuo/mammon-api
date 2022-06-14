@@ -9,7 +9,7 @@ router = APIRouter(
 )
 
 
-@router.get(
+@router.post(
     path="",
     response_model=list[Replenishment],
     name="Read all replenishments by date"
@@ -19,4 +19,3 @@ async def read_replenishments_by_date(datetime_: ReplenishmentDate) -> list[Repl
         start_datetime=datetime_.start,
         end_datetime=datetime_.end)
     return [Replenishment(id=r.id, datetime=r.datetime, currency=r.currency) for r in replenishments]
-
